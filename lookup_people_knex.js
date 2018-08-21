@@ -20,6 +20,7 @@ knex.select('*').from("famous_people")
     }
     console.log("Found " + result.length + " person(s) by the name " + firstName);
     resultsLogger(result);
+    knex.destroy();
   });
 
 
