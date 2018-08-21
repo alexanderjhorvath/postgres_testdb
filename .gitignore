@@ -8,6 +8,9 @@ yarn-error.log*
 # settings
 settings.json
 
+# Mac files
+.DS_Store
+
 # Runtime data
 pids
 *.pid
