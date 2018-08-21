@@ -18,18 +18,16 @@ client.connect((err) => {
     return console.error("Connection Error", err);
   }
   console.log("Searching ...");
-  client.query("SELECT * FROM famous_people WHERE $1::text = first_name", [firstName], (err, result) => {
+  client.query("SELECT * FROM famous_people WHERE $1::text = first_name OR $1::text = last_name", [firstName], (err, result) => {
     if (err) {
       return console.error("error running query", err);
     }
     console.log("Found " + result.rows.length + " person(s) by the name " + firstName);
     var num = 1;
     result.rows.forEach(function(item) {
-      console.log("- " + num + ": " + item.first_name, item.last_name + ", born " + item.birthdate)
+      console.log("- " + num + ": " + item.first_name, item.last_name + ", born " + "\'" + item.birthdate.toLocaleDateString() + "\'");
       num++;
     })
-    console.log(result.rows);
-
     client.end();
   });
 });
