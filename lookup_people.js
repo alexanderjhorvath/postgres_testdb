@@ -11,7 +11,6 @@ const client = new pg.Client({
 });
 
 const firstName = process.argv[2];
-const results = [];
 
 client.connect((err) => {
   if (err) {
@@ -23,11 +22,15 @@ client.connect((err) => {
       return console.error("error running query", err);
     }
     console.log("Found " + result.rows.length + " person(s) by the name " + firstName);
-    var num = 1;
-    result.rows.forEach(function(item) {
-      console.log("- " + num + ": " + item.first_name, item.last_name + ", born " + "\'" + item.birthdate.toLocaleDateString() + "\'");
-      num++;
-    })
+    resultsLogger(result.rows);
     client.end();
   });
 });
+
+function resultsLogger(results) {
+  var num = 1;
+  results.forEach(function(item) {
+    console.log("- " + num + ": " + item.first_name, item.last_name + ", born " + "\'" + item.birthdate.toLocaleDateString() + "\'");
+    num++;
+  });
+};
