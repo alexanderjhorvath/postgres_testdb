@@ -12,7 +12,9 @@ var knex = require("knex") ({
 
 const firstName = process.argv[2];
 
-knex.select('*').from("famous_people")
+knex
+  .select('*')
+  .from('famous_people')
   .where('first_name', '=', firstName)
   .asCallback(function(err, result) {
     if (err) {
